@@ -1,25 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../../context/AppContextProvider';
 
-const Editar = ({pelicula,editandoSetter,listaPeliculas,listaPeliculasSetter}) => {
+const Editar = ({pelicula,editandoSetter}) => {
+
+    const appContext = useContext(AppContext);
 
     const guardar = (e)=>{
         e.preventDefault();
         if(window.confirm("¿Desea guardar la información modificada?") === true){            
-            const listaActualizada = listaPeliculas.map(
-                peli=>{                    
-                    if(peli.id === pelicula.id){
-                        console.log("Peli encontrada:" + peli);
-                        peli.titulo = e.target.titulo.value;
-                        peli.descripcion = e.target.descripcion.value;
-                        peli.portada = e.target.portada.value;
-                    }
-                    return peli; 
-                });
-            
-            editandoSetter(0);
-            console.log(listaActualizada);
-            listaPeliculasSetter(listaActualizada);
 
+            let peliEdit = {
+                id: pelicula.id,
+                titulo : e.target.titulo.value,
+                descripcion : e.target.descripcion.value,
+                portada : e.target.portada.value
+            }
+
+            appContext.editarPelicula(peliEdit);
+            editandoSetter(0);
         }
     }
 

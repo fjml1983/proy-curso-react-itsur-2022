@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { saveToLocalStorageHelper } from '../helpers/saveToLocalStorageHelper';
+import React, { useContext } from 'react'
+import { AppContext } from '../../context/AppContextProvider';
 
 export const Agregar = () => {
 
-    const [pelicula, setPelicula] = useState();
+    const appContext = useContext(AppContext);
 
     const guardar = (event)=>{
         event.preventDefault();
@@ -18,14 +18,13 @@ export const Agregar = () => {
             portada
         }
         console.log(peli);
-        setPelicula(peli);
-        saveToLocalStorageHelper("peliculas", peli);
+        appContext.agregarPelicula(peli);
+        event.target.reset();
     }
 
     return (
         <div className="add">
             <h3 className="title">Añadir pelicula</h3>
-            {pelicula && <p>Has guardado la pelicula {pelicula.titulo}</p>}
             <form onSubmit={guardar}>
                 <input type="text" id="titulo" placeholder="Titulo" />
                 <textarea id="descripcion" placeholder="Descripción"></textarea>

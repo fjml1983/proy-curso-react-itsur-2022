@@ -217,3 +217,8 @@ input[type="button"]{
       width: 80%;
   }
 }
+
+img{
+  border-radius: 24px;
+  border: 1px solid lightgray;
+}
